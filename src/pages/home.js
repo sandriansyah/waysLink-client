@@ -1,5 +1,7 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
+
+import {UserContext} from '../context/userContext'
 
 import SideBar from '../component/sideBar'
 import Template1 from '../media/Phone.png'
@@ -10,8 +12,10 @@ import Template4 from '../media/Phone 4.png'
 
 const Home = () => {
 
+    const [isLogin,setIslogin] = useContext(UserContext)
     const navigate = useNavigate()
     const [statusLoad,setStatusLoad]=useState(false)
+
 
   return (
     <div style={{height:"100vh",display:"flex"}} className="bg-light" onLoad={()=> setStatusLoad(true)}>

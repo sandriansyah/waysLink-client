@@ -57,7 +57,7 @@ const CreateLink = () => {
                         
                         {socialMedia.map((item)=>{
                             return(
-                                <div className='mb-4 rounded d-flex p-3' style={{background:"#ececec"}}>
+                                <div key={item.id} className='mb-4 rounded d-flex p-3' style={{background:"#ececec"}}>
                                     <div>
                                         <img src={ImgLink} alt="foto link"/>
                                     </div>

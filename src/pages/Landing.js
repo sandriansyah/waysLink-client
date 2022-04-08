@@ -1,58 +1,181 @@
-import React,{useState} from 'react'
-import {Modal} from "react-bootstrap"
+import React,{useState,useContext} from 'react'
+import {Modal,Alert} from "react-bootstrap"
 import {useNavigate} from 'react-router-dom'
+
+import {UserContext} from '../context/userContext'
 
 import Logo from "../media/Frame.png"
 import Pc from "../media/PC.png"
 import Phone from "../media/Phone.png"
 
+import { API } from '../midlewere/api'
+
 const Landing = () => {
+
+    const [isLogin,setIslogin] = useContext(UserContext)
+
+    const [message,setMessage] = useState(null)
 
     const [show,setShow] = useState(false)
     const [showLogin,setShowLogin] = useState(false)
     
     const navigate= useNavigate()
 
+    const [form,setForm] = useState({
+        email:"",
+        password:"",
+        fullName:""
+    })
+
+    const handleChange =(e)=>{
+        setForm({
+            ...form,
+            [e.target.name]:e.target.value,
+        })
+    }
+
+    const handleRegister = async(e) =>{
+        try {
+            e.preventDefault();
+
+            // configuratton content-type
+            const config ={
+                headers:{
+                    "Content-type":"application/json"
+                }
+            }
+            // conver form data to string
+            const body = JSON.stringify(form)
+
+            //insert data to database
+            const response = await API.post("/register",body,config)
+            console.log(response);
+
+            if(response.data.status == "success"){
+
+                const alert = <Alert variant="success" className="py-1" > success </Alert>
+
+                setMessage(alert)
+                // navigate("/home")
+            }else{
+                const alert = <Alert variant="danger" className="py-1" > failed </Alert>
+
+                setMessage(alert)
+            }
+
+        } catch (error) {
+            console.log(error);
+            const alert = (
+                <Alert variant="danger" className="py-1" >
+                    failed
+                </Alert>
+            );
+            setMessage(alert);
+        }
+    }
+
+    const [formLogin,setFormLogin] = useState({
+        email:"",
+        password:"",
+    })
+
+    const handleChangeLogin =(e)=>{
+        setFormLogin({
+            ...formLogin,
+            [e.target.name]:e.target.value,
+        })
+    }
+
+    const handleLogin = async(e) =>{
+        try {
+            e.preventDefault();
+
+            // configuratton content-type
+            const config ={
+                headers:{
+                    "Content-type":"application/json"
+                }
+            }
+            // conver form data to string
+            const body = JSON.stringify(formLogin)
+        
+            //insert data to database
+            const response = await API.post("/login",body,config)
+            console.log(response.data);
+            if(response.data.status == "success"){
+                setIslogin({
+                    type: "LOGIN_SUCCESS",
+                    payload: response.data.data
+                })
+
+                const alert = <Alert variant="success" className="py-1" > success </Alert>
+
+                setMessage(alert)
+                navigate("/home")
+            }else{
+                const alert = <Alert variant="danger" className="py-1" > failed </Alert>
+
+                setMessage(alert)
+            }
+
+        } catch (error) {
+            console.log(error);
+            const alert = (
+                <Alert variant="danger" className="py-1" >
+                    failed
+                </Alert>
+            );
+            setMessage(alert);
+        }
+    }
+
 return (
     <div className='containerLanding vh-100'>
 
-        <Modal className="modalFromBosstrap mt-5 " show={show}  onHide={()=> setShow(false)}> 
-            <div class="modalSignUp p-4">
-                <form className="d-inline" >
+        <Modal className="modalFromBosstrap mt-5 " show={show}  onHide={()=> {setShow(false);setMessage(false)}}> 
+            <div className="modalSignUp p-4">
+                <form className="d-inline" onSubmit={handleRegister} >
+                    {message}
                     <h3 className='fw-bold mb-4'>Register</h3>
-                    {/* {message} */}
                     <div>
-                        <input type="email" name="email" placeholder="Email" className='w-100 mb-3 bgInput' />
+                        <input type="email" name="email" placeholder="Email" className='ps-3 w-100 mb-3 bgInput' 
+                        onChange={handleChange}/>
                     </div>
                     <div>
-                        <input type="password" name="password" placeholder="Password" className='w-100 mb-3 bgInput' />          
+                        <input type="password" name="password" placeholder="Password" className='w-100 mb-3 bgInput' 
+                        onChange={handleChange}/>          
                     </div>
                     <div>
-                        <input type="text" name="fullName" placeholder="Full Name" className='w-100 mb-3 bgInput' />          
+                        <input type="text" name="fullName" placeholder="Full Name" className='w-100 mb-3 bgInput' 
+                        onChange={handleChange}/>          
                     </div>
-                    <button type="submit" className='w-100 colorOrange border-0 text-light fw-bold' style={{height:"35px",borderRadius:"5px"}} onClick={()=>navigate("/home")}>
+                    <button type="submit" className='w-100 colorOrange border-0 text-light fw-bold' style={{height:"35px",borderRadius:"5px"}}>
                         Sign Up
                     </button>
-                    <p className='text-center mt-2'>Already have an account ? Klik <b  style={{cursor:"pointer"}}>Here</b> </p>
+                    <p className='text-center mt-2'>Already have an account ? Klik <b  style={{cursor:"pointer"}}
+                    onClick={()=>{setShowLogin(true); setShow(false)}}>Here</b> </p>
                 </form>
             </div>                  
         </Modal>
 
-        <Modal className="modalFromBosstrap mt-5 " show={showLogin}  onHide={()=> setShowLogin(false)}> 
-            <div class="modalSignUp p-4">
-                <form className="d-inline" >
+        <Modal className="modalFromBosstrap mt-5 " show={showLogin}  onHide={()=> {setShowLogin(false);setMessage(false)}}> 
+            <div className="modalSignUp p-4">
+                <form className="d-inline" onSubmit={handleLogin}>
+                {message}
                     <h3 className='fw-bold mb-4'>Login</h3>
-                    {/* {message} */}
                     <div>
-                        <input type="email" name="email" placeholder="Email" className='w-100 mb-3 bgInput' />
+                        <input type="email" name="email" placeholder="Email" className='w-100 mb-3 bgInput' 
+                        onChange={handleChangeLogin}/>
                     </div>
                     <div>
-                        <input type="text" name="fullName" placeholder="Full Name" className='w-100 mb-3 bgInput' />          
+                        <input type="password" name="password" placeholder="password" className='w-100 mb-3 bgInput' 
+                        onChange={handleChangeLogin} />          
                     </div>
-                    <button type="submit" className='w-100 colorOrange border-0 text-light fw-bold' style={{height:"35px",borderRadius:"5px"}} onClick={()=>navigate("/home")}>
+                    <button type="submit" className='w-100 colorOrange border-0 text-light fw-bold' style={{height:"35px",borderRadius:"5px"}}>
                         Login
                     </button>
-                    <p className='text-center mt-2'>Don't have an account ? Klik <b  style={{cursor:"pointer"}}>Here</b> </p>
+                    <p className='text-center mt-2'>Don't have an account ? Klik <b  style={{cursor:"pointer"}}
+                    onClick={()=>{setShowLogin(false); setShow(true)}}>Here</b> </p>
                 </form>
             </div>                  
         </Modal>
