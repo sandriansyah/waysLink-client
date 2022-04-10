@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Modal } from 'react-bootstrap'
 // import { useNavigate } from 'react-router-dom'
 
@@ -8,15 +8,31 @@ import ImageLink from '../media/Rectangle 9.png'
 import View from '../media/View.png'
 import Edit from '../media/Edit.png'
 import Delete from '../media/delete.png'
-// import Loupe from '../media/loupe.png'
 
-// import SearchIcon from '@mui/icons-material/Search';
+import {API} from '../midlewere/api'
 
 const MyLinks = () => {
 
     const [show,setShow]= useState(false)
+    const [groupLink,setGroupLink] = useState([])
 
     // const navigate = useNavigate()
+
+    useEffect(()=>{
+        getGroups()
+    },[])
+
+    const getGroups = async ()=>{
+        try {
+            const response = await API.get('/grouplink')
+            console.log(response);
+            setGroupLink(response.data.getData)
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
   return (
     <div style={{height:"100vh",display:"flex"}} className="bg-light">
@@ -50,26 +66,36 @@ const MyLinks = () => {
                     <button className='colorOrange py-1 px-3 fw-bold border-0 rounded' style={{color:"white"}}>Search</button>
                 </div>
             </div>
-            <div className='px-5 d-flex'>
-                <div>
-                    <img src={ImageLink} style={{width:"70px"}} alt="foto link"/>
-                </div>
-                <div className='d-flex justify-content-between w-100 ms-3'>
-                    <div className='d-flex flex-column'>
-                        <h6 className='mt-2'>WaysFood</h6>
-                        <p>localhost:3000/waysfood</p>
-                    </div>
-                    <div className='d-flex flex-column'>
-                        <h6 className='mt-2'>10</h6>
-                        <p>visit</p>
-                    </div>
+
+            {groupLink.map((item)=>{
+                return( 
+                <div key={item.id} className='px-5 d-flex'>
                     <div>
-                        <img src={View} alt="icon view" style={{width:"40px",marginLeft:"10px",marginTop:"18px"}}/>
-                        <img src={Edit} alt="icon edit" style={{width:"40px",marginLeft:"10px",marginTop:"18px"}}/>
-                        <img src={Delete} alt="icon delete" style={{width:"40px",marginLeft:"10px",marginTop:"18px"}} onClick={()=> setShow(true)}/>
+                        <img src={item.image} style={{width:"70px"}} alt="foto link"/>
+                    </div>
+                    <div className='d-flex justify-content-between w-100 ms-3'>
+                        <div className='d-flex flex-column'>
+                            <h6 className='mt-2'>{item.title}</h6>
+                            <p>localhost:3000/waysfood</p>
+                        </div>
+                        <div className='d-flex flex-column'>
+                            <h6 className='mt-2'>10</h6>
+                            <p>visit</p>
+                        </div>
+                        <div>
+                            <img src={View} alt="icon view" style={{width:"40px",marginLeft:"10px",marginTop:"18px"}}/>
+                            <img src={Edit} alt="icon edit" style={{width:"40px",marginLeft:"10px",marginTop:"18px"}}/>
+                            <img src={Delete} alt="icon delete" style={{width:"40px",marginLeft:"10px",marginTop:"18px"}} onClick={()=> setShow(true)}/>
+                        </div>
                     </div>
                 </div>
-            </div>
+                )
+            })}
+
+            
+            
+
+
         </div>
     </div>
   )

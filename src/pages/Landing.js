@@ -8,7 +8,7 @@ import Logo from "../media/Frame.png"
 import Pc from "../media/PC.png"
 import Phone from "../media/Phone.png"
 
-import { API } from '../midlewere/api'
+import { API,setAuthToken} from '../midlewere/api'
 
 const Landing = () => {
 
@@ -101,8 +101,12 @@ const Landing = () => {
         
             //insert data to database
             const response = await API.post("/login",body,config)
-            console.log(response.data);
+            console.log(response);
+
             if(response.data.status == "success"){
+
+                setAuthToken(response.data.data.token)
+
                 setIslogin({
                     type: "LOGIN_SUCCESS",
                     payload: response.data.data
