@@ -116,7 +116,7 @@ const MyLinks = () => {
                 return( 
                 <div key={item.id} className='px-5 d-flex mb-3'>
                     <div>
-                        <img src={item.image} style={{width:"70px"}} alt="foto link"/>
+                        <img src={item.image} style={{width:"70px",width:"100px",height:"100px"}} alt="foto link"/>
                     </div>
                     <div className='d-flex justify-content-between w-100 ms-3'>
                         <div className='d-flex flex-column'>
@@ -125,7 +125,7 @@ const MyLinks = () => {
                         </div>
                         <div className='d-flex flex-column'>
                             <h6 className='mt-2'>{item.viewCount}</h6>
-                            <p>visit</p>
+                            <p style={{fontSize:"20px",fontWeight:"bold"}}>visit</p>
                         </div>
                         <div>
                             <img src={View} alt="icon view" style={{width:"40px",marginLeft:"10px",marginTop:"18px"}} 
