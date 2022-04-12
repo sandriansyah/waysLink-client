@@ -9,6 +9,7 @@ import Landing from "../src/pages/Landing"
 import Home from "./pages/home"
 import Profile from "./pages/profile"
 import CreateLink from "./pages/createLink"
+import EditLink from "./pages/editLink"
 import MyLinks from "./pages/mylink"
 import DisplayLinks from "./pages/displayLinks"
 
@@ -24,7 +25,7 @@ function App() {
 
   const [user,setUser]= useContext(UserContext)
 
-  console.log(user);
+  // console.log(user);
 
   useEffect(()=>{
 
@@ -68,8 +69,9 @@ function App() {
           <Route exact path="/home" element={<Home/>} />
           <Route exact path="/profile" element={<Profile/>} />
           <Route exact path="/createlink" element={<CreateLink/>} />
+          <Route exact path="/editlink/:id" element={<EditLink/>} />
           <Route exact path="/mylink" element={<MyLinks/>} />
-          <Route exact path="/display" element={<DisplayLinks/>} />
+          <Route exact path="/display/:id" element={<DisplayLinks/>} />
         </Routes>
       // </Router>
   );

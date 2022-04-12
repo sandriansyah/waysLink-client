@@ -142,15 +142,15 @@ return (
                     {message}
                     <h3 className='fw-bold mb-4'>Register</h3>
                     <div>
-                        <input type="email" name="email" placeholder="Email" className='ps-3 w-100 mb-3 bgInput' 
+                        <input type="email" name="email" placeholder="Email" className='ps-2 w-100 mb-3 bgInput' 
                         onChange={handleChange}/>
                     </div>
                     <div>
-                        <input type="password" name="password" placeholder="Password" className='w-100 mb-3 bgInput' 
+                        <input type="password" name="password" placeholder="Password" className='w-100 mb-3 bgInput ps-2' 
                         onChange={handleChange}/>          
                     </div>
                     <div>
-                        <input type="text" name="fullName" placeholder="Full Name" className='w-100 mb-3 bgInput' 
+                        <input type="text" name="fullName" placeholder="Full Name" className='w-100 mb-3 bgInput ps-2' 
                         onChange={handleChange}/>          
                     </div>
                     <button type="submit" className='w-100 colorOrange border-0 text-light fw-bold' style={{height:"35px",borderRadius:"5px"}}>
@@ -168,11 +168,11 @@ return (
                 {message}
                     <h3 className='fw-bold mb-4'>Login</h3>
                     <div>
-                        <input type="email" name="email" placeholder="Email" className='w-100 mb-3 bgInput' 
+                        <input type="email" name="email" placeholder="Email" className='w-100 mb-3 bgInput ps-2' 
                         onChange={handleChangeLogin}/>
                     </div>
                     <div>
-                        <input type="password" name="password" placeholder="password" className='w-100 mb-3 bgInput' 
+                        <input type="password" name="password" placeholder="password" className='w-100 mb-3 bgInput ps-2' 
                         onChange={handleChangeLogin} />          
                     </div>
                     <button type="submit" className='w-100 colorOrange border-0 text-light fw-bold' style={{height:"35px",borderRadius:"5px"}}>

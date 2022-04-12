@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import SideBar from '../component/sideBar'
+import { v4 as uuidv4 } from 'uuid';
 
 import ImgLink from '../media/upload foto.png'
 import Template1 from '../media/Phone.png'
@@ -8,6 +9,8 @@ import {API} from '../midlewere/api'
 import { Alert } from 'react-bootstrap'
 
 const CreateLink = () => {
+
+    const uniqueLink = uuidv4()
 
     const [message,setMessage]= useState(null)
 
@@ -23,8 +26,6 @@ const CreateLink = () => {
         title:"",
         url:"",
     })
-
-
 
     const onChangeNewGroup = (e)=>{
         setAddGroup({
@@ -47,6 +48,11 @@ const CreateLink = () => {
             ...links,
             addLink
         ])
+        setAddLink({
+            imageLink: "",
+            title:"",
+            url:"",
+        })
     }
 
     const handlePublishLink = async(e)=>{
@@ -63,6 +69,7 @@ const CreateLink = () => {
             formDataGroup.set("image", addGroup.image[0],addGroup.image[0].name);
             formDataGroup.set("title", addGroup.title);
             formDataGroup.set("description", addGroup.description);
+            formDataGroup.set("uniqueLink", uniqueLink.slice(0,8));
 
             const response = await API.post('/grouplink',formDataGroup,config)
             console.log(response);
@@ -71,9 +78,9 @@ const CreateLink = () => {
             console.log(addLink);
             for (let index = 0; index < links.length; index++) {
                 const formDataLink = new FormData();
-                formDataLink.set("imageLink", addLink.imageLink[0],addLink.imageLink[0].name);
-                formDataLink.set("title", addLink.title);
-                formDataLink.set("url", addLink.url);
+                formDataLink.set("imageLink", links[index].imageLink[0],links[index].imageLink[0].name);
+                formDataLink.set("title", links[index].title);
+                formDataLink.set("url", links[index].url);
                 formDataLink.set("idGroup", idGroup );
 
                 const response = await API.post('/link',formDataLink,config)

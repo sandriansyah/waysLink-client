@@ -13,9 +13,10 @@ const Profile = () => {
     const navigate = useNavigate()
 
     const [dataUser,setDataUser]= useState([])
+
     const [inputProfile,setInputProfile]=useState({
-        fullName:"",
-        email:""
+        fullName: dataUser?.fullName,
+        email:dataUser?.email
     })
 
     const [notif,setNotif] = useState(null)
