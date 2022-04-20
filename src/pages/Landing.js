@@ -1,6 +1,7 @@
 import React,{useState,useContext} from 'react'
 import {Modal,Alert} from "react-bootstrap"
 import {useNavigate} from 'react-router-dom'
+import "./landing.css"
 
 import {UserContext} from '../context/userContext'
 

@@ -1,6 +1,6 @@
 import React,{useContext,useEffect,useState} from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
-import "./app.css"
+
 import {BrowserRouter as Router,Routes,Route,useNavigate} from "react-router-dom"
 
 import {UserContext} from '../src/context/userContext'

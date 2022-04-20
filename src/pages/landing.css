@@ -3,33 +3,15 @@
     ;
 }
 
-.bgInput{
-    background-color: #D2D2D2;
-    border: 1px grey solid;
-    border-radius: 5px;
-    height: 35px;
-}
-
-.sectionPedding{
-    padding: 0 100px;
-}
+/* style landing */
 
 .containerLanding{
-    background-image: url("../src/media/background.jpg");
+    background-image: url("../media/background.jpg");
     height: 96vh;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.scroll::-webkit-scrollbar{
-    display: none;
-}
-
-.searchInput input:focus{
-    outline:none
-}
-
-/* style landing */
 .landingNav{
     display: flex;
     height: 9vh;
@@ -71,3 +53,6 @@
     /* background-color: blue; */
 }
 
+.sectionPedding{
+    padding: 0 100px;
+}

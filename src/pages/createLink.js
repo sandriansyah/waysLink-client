@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SideBar from '../component/sideBar'
 import { v4 as uuidv4 } from 'uuid';
+import "./createlink.css"
 
 import ImgLink from '../media/upload foto.png'
 import Template1 from '../media/Phone.png'

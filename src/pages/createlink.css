@@ -1,0 +1,14 @@
+.scroll::-webkit-scrollbar{
+    display: none;
+}
+
+.searchInput input:focus{
+    outline:none
+}
+
+.bgInput{
+    background-color: #D2D2D2;
+    border: 1px grey solid;
+    border-radius: 5px;
+    height: 35px;
+}
